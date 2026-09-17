@@ -1,0 +1,26 @@
+name: Trigger Frontend Deployment
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch Event to Central DevOps Hub
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.GITPAT }}
+          repository: fardin-254/devops-practice
+          event-type: trigger-frontend
+          client-payload: |
+            {
+              "service": "frontend",
+              "repo_name": "${{ github.repository }}",
+              "commit": "${{ github.sha }}",
+              "version": "v${{ github.run_number }}",
+              "action": "both"
+            }
