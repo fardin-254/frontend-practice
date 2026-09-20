@@ -6,8 +6,7 @@ RUN touch /var/run/nginx.pid && \
   chown -R nginx:nginx /var/run/nginx.pid /var/cache/nginx
 
 # Copy our custom NGINX reverse-proxy configuration
-COPY nginx.conf /etc/nginx/nginx.conf
-
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Copy our website HTML & JavaScript into NGINX's default web directory
 COPY src/ /usr/share/nginx/html/
 
